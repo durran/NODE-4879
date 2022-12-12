@@ -11,7 +11,7 @@ const collection = db.collection('test');
 await collection.drop();
 await collection.insertMany([{ n: 1 }, { n: 2}, { n: 3 }]);
 
-const cursor = collection.find({}).map(doc => transform(doc));
+const cursor = collection.find({}, { batchSize: 1 }).map(doc => transform(doc));
 
 while (await cursor.hasNext()) {
   console.log(await cursor.next());
